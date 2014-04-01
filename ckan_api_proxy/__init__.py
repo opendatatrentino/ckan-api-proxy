@@ -4,17 +4,13 @@ import json
 import flask
 from flask.ext.restful import Resource, Api
 from werkzeug.exceptions import NotFound, BadRequest, HTTPException
+from werkzeug.exceptions import NotImplemented as NotImplementedExc
 from ckan_api_client.high_level import CkanHighlevelClient
 from ckan_api_client.exceptions import HTTPError
 from ckan_api_client.objects import CkanDataset, CkanResource
 
 app = flask.Flask(__name__)
 api = Api(app)
-
-
-class Teapot(HTTPException):  # RFC 2324
-    code = 418
-    description = "I'm a teapot"
 
 
 # Todo: read these from HTTP request headers:
@@ -54,7 +50,7 @@ class DatasetCollection(Resource):
         return [client.get_dataset(id).serialize() for id in page_ids]
 
     def post(self):
-        raise Teapot()
+        raise NotImplementedExc()
 
 
 class Dataset(Resource):
@@ -69,7 +65,7 @@ class Dataset(Resource):
         return dataset.serialize()
 
     def put(self, dataset_id):
-        raise Teapot()
+        raise NotImplementedExc()
 
 
 class DatasetResourceCollection(Resource):
@@ -103,7 +99,7 @@ class DatasetResource(Resource):
         raise NotFound("The resource was not found")
 
     def put(self, dataset_id, resource_id):
-        raise Teapot()
+        raise NotImplementedExc()
 
     def delete(self, dataset_id, resource_id):
         dataset = _get_dataset(dataset_id)
