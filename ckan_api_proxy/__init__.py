@@ -21,7 +21,11 @@ CKAN_API_KEY = '9aa2ee4e-5baa-46e1-adda-bc876db398a0'
 
 
 def get_ckan_client():
-    return CkanHighlevelClient(base_url=CKAN_URL, api_key=CKAN_API_KEY)
+    ckan_url = flask.request.headers.get('x-ckan-url')
+    ckan_apikey = flask.request.headers.get('x-ckan-apikey')
+    if ckan_url is None:
+        raise BadRequest("You must pass a x-ckan-url header")
+    return CkanHighlevelClient(base_url=ckan_url, api_key=ckan_apikey)
 
 
 # def json_response(data):
