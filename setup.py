@@ -6,7 +6,8 @@ version = '0.1-alpha'
 
 install_requires = [
     "flask",
-    "ckan-api-client",  # noqa
+    "flask-restful",
+    "ckan-api-client",
 ]
 
 dependency_links = [
